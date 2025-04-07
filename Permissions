@@ -1,0 +1,103 @@
+Nice — you’re diving deeper now! Understanding file permissions like `chmod`, `ls -l`, and permission bits (`rwx`, `755`, etc.) is **super important on Linux systems**, but here’s the key thing to know:
+
+> 🔹 **Linx on Windows 11 doesn’t directly manage Unix-style permissions like chmod.**  
+Windows uses a **different permissions system (ACLs)**, and Linx doesn’t have built-in functions for `chmod`-style permission changes.
+
+BUT — let’s break down how your knowledge **applies** or how you can **work around or simulate** it in Linx:
+
+---
+
+## 🧠 First: Quick Recap of What You Know
+
+- `ls -l`: Shows file permissions and metadata
+- `chmod 755`: Changes permissions (e.g., read/write/execute for owner/group/others)
+- `rwx`:
+  - `r` = read
+  - `w` = write
+  - `x` = execute
+- Common permission sets:
+  - `777`: everyone can do anything (not safe)
+  - `755`: owner can rwx, others can rx (common for executables)
+  - `644`: owner can rw, others can r (common for text files)
+
+---
+
+## 🔹 1. Can You Use `ls -l` or `chmod` in Linx?
+
+Not directly — but here's how you can **work around** it:
+
+### ✅ Option 1: Use the `CommandLine` Plugin
+
+You can run Linux-style or PowerShell commands through Linx’s `CommandLine` function, for example:
+
+#### ➤ To mimic `ls -l`:
+If using WSL (Windows Subsystem for Linux):
+```bash
+wsl ls -l /mnt/c/Users/YourName/Documents
+```
+
+Or in PowerShell:
+```powershell
+Get-Item "C:\Users\YourName\Documents\file.txt" | Format-List
+```
+
+#### ➤ To mimic `chmod`:
+Only works in WSL or Linux environment. For example:
+```bash
+wsl chmod 755 /mnt/c/Users/YourName/Documents/script.sh
+```
+
+📌 On native Windows, `chmod` has no effect. You’d need to use PowerShell's `icacls` or `Set-Acl` commands.
+
+---
+
+## 🔹 2. What About Permissions in Windows?
+
+Windows uses **ACLs (Access Control Lists)**. To change file permissions, you'd use:
+
+- PowerShell commands like `icacls`, e.g.:
+```powershell
+icacls "C:\Path\to\file.txt" /grant "Username:F"
+```
+
+- You can run this via Linx’s `CommandLine` function.
+
+🛠 **In Linx**:
+- Add `CommandLine` plugin
+- Set command to `powershell.exe`
+- Arguments: `-Command "icacls 'C:\Your\File.txt' /grant 'User:F'"`
+
+---
+
+## 🔹 3. Can Linx Read Permissions?
+
+Not directly in Unix style like `ls -l`, but you can:
+
+- Use `FileExists`, `FileRead`, etc. to test access
+- Or use PowerShell to get permissions:
+```powershell
+(Get-Acl "C:\Your\File.txt").Access
+```
+
+---
+
+## 🔧 TL;DR — Your Linux File Permission Knowledge in Linx
+
+| Linux Skill            | Linx Equivalent / Workaround                             |
+|------------------------|----------------------------------------------------------|
+| `ls -l`                | Use PowerShell: `Get-Item`, or WSL + `ls -l`             |
+| `chmod 755 file.txt`   | Use `CommandLine` to run `chmod` via WSL or `icacls`    |
+| `rwx` permissions      | Map to Windows ACLs (Read, Write, Execute)               |
+| `777`, `755`, `644`    | Translate to `Full`, `Read`, or `Modify` in Windows ACLs |
+
+---
+
+## Want an Example?
+
+I can walk you through a real Linx function that:
+
+1. Creates a file
+2. Uses `CommandLine` to set permissions (Windows-style)
+3. Logs the permissions
+
+Would you like that? Or do you want to focus on WSL-based `chmod` inside Linx?
