@@ -1,0 +1,110 @@
+Automating or building file workflows.
+
+Linx doesn’t use direct terminal commands like `mkdir`, `touch`, or `rm` — instead, it has built-in **functions and plugins** that let you do these things graphically or programmatically.
+
+Here’s a breakdown of how your CLI file operations map to Linx features:
+
+---
+
+## 🔹 1. `mkdir foldername` / `mkdir -p path/to/folder`
+
+### **Linx Equivalent:**
+Use the **`DirectoryCreate`** function (from the **File plugin**)
+
+- **Create single folders** or **nested folders**.
+- If the parent folders don’t exist, Linx will create them if you enable recursive creation.
+
+🛠 Example:
+- Add `DirectoryCreate`
+- Set `Path` to something like `C:\Users\YourName\Documents\MyApp\Logs`
+
+---
+
+## 🔹 2. `touch filename.txt`
+
+### **Linx Equivalent:**
+Use the **`FileWrite`** function
+
+- If the file doesn’t exist, Linx creates it.
+- You can write empty content or some starting text.
+
+🛠 Example:
+- Add `FileWrite`
+- Path: `C:\Users\YourName\Documents\notes.txt`
+- Content: `""` (empty string) for a "touch"-style behavior
+
+---
+
+## 🔹 3. `cat filename.txt`
+
+### **Linx Equivalent:**
+Use the **`FileRead`** function
+
+- This reads the content of a text file and stores it in a variable or returns it via an API.
+
+🛠 Example:
+- Add `FileRead`
+- Set the path to your file
+- Use `LogMessage` to log the contents
+
+---
+
+## 🔹 4. `nano filename.txt`
+
+### **Linx Equivalent:**
+There’s no built-in text editor in Linx — you'd use:
+
+- `FileRead` to read
+- `FileWrite` or `FileAppend` to update
+- Or open the file manually in Notepad or another editor
+
+🔄 Linx focuses more on automation than manual editing.
+
+---
+
+## 🔹 5. `rm filename.txt`  
+## 🔹 6. `rm -r foldername`
+
+### **Linx Equivalent:**
+Use the **`FileDelete`** or **`DirectoryDelete`** functions
+
+- `FileDelete` = like `rm`
+- `DirectoryDelete` = like `rm -r`
+
+🛠 Example:
+- Add `FileDelete`
+- Set path: `C:\Temp\oldfile.txt`
+
+For recursive folder delete:
+- Set `DirectoryDelete → DeleteContent` to `True`
+
+---
+
+## 🔹 7. `rm -i`
+
+### **Linx Equivalent:**
+There’s no native "ask before delete" prompt in Linx’s runtime (it’s automated), **but you can build it**:
+
+🛠 Example Flow:
+- Add a `Decision` function
+- Pass a Boolean variable like `ConfirmDelete`
+- Only call `FileDelete` if `ConfirmDelete = True`
+
+Or expose a **REST API** in Linx where a human confirms delete via a front-end.
+
+---
+
+## ✅ Summary Mapping
+
+| Linux Command        | Linx Function / Action         |
+|----------------------|-------------------------------|
+| `mkdir folder`       | `DirectoryCreate`              |
+| `mkdir -p path`      | `DirectoryCreate` (nested path)|
+| `touch file.txt`     | `FileWrite` (with empty content)|
+| `cat file.txt`       | `FileRead`                     |
+| `nano file.txt`      | External editor or `FileWrite` |
+| `rm file.txt`        | `FileDelete`                   |
+| `rm -r folder`       | `DirectoryDelete`              |
+| `rm -i`              | Use a `Decision` logic or API confirmation |
+
+---
