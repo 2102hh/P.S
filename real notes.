@@ -1,1 +1,28 @@
+In the context of **Linx** on **Windows 11**, a **CRUD operation** refers to the standard set of actions used to manage data in applications:
 
+- **C** – **Create**: Add new data or records.
+- **R** – **Read**: Retrieve or view existing data.
+- **U** – **Update**: Modify existing data.
+- **D** – **Delete**: Remove data.
+
+
+
+### How CRUD Operations Work in Linx:
+
+
+You typically perform CRUD operations in Linx using the following tools or plugins:
+
+- **Database Plugin** (e.g., for SQL Server, MySQL, PostgreSQL, etc.)
+- **REST or Web Services Plugin** (for exposing your CRUD operations over HTTP)
+- **File Plugin** (for CRUD on file systems)
+
+
+
+### Example of CRUD in Linx (for a SQL database):
+
+1. **Create**: Use a `ExecuteSQL` function with an `INSERT INTO` statement.
+2. **Read**: Use a `Query` function to run a `SELECT` statement.
+3. **Update**: Use `ExecuteSQL` with an `UPDATE` statement.
+4. **Delete**: Use `ExecuteSQL` with a `DELETE FROM` statement.
+
+Each operation is typically set up in a Linx **Function**, and can be exposed via an **API** (REST or SOAP) or scheduled to run automatically.
