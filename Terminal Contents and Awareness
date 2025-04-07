@@ -1,0 +1,70 @@
+Just to clarify — **Linx** is **not a terminal or shell like Linux/bash** — instead, it’s a **low-code application development environment** with a graphical user interface (GUI). So, while your command-line skills are super useful (especially when dealing with files or scripts), using Linx is more about **drag-and-drop logic, configuring plugins, and setting properties** than typing bash commands.
+
+That said, here’s how your skills **translate** or **support your work** in **Linx on Windows 11**:
+
+---
+
+### 🔹 1. **Working with Files in Linx (like using `pwd`, `cd`, `~`)**
+
+If you’re building a Linx solution that involves file input/output:
+
+- Instead of using `pwd`, you’ll configure a **FilePath** or **DirectoryPath** in Linx.
+- You’ll manually select or set paths like:
+  - `C:\Users\YourName\Documents\`
+  - Or `~` equivalent would be your **user profile folder**, like `C:\Users\YourName`
+- You can also use the **Environment Plugin** to get things like:
+  - Current working directory
+  - System paths
+  - User home directory
+
+So your CLI knowledge helps when you're specifying the correct paths or understanding relative vs absolute paths.
+
+---
+
+### 🔹 2. **Using Linx to Run Terminal Commands (like your bash commands)**
+
+Linx has a **CommandLine plugin** where you can run terminal commands (like `pwd`, `dir`, `cd`, etc.). Example use case:
+
+- You want to execute a PowerShell or bash script from Linx.
+- You use the **`CommandLine`** function to do something like:
+  - Command: `powershell.exe`
+  - Arguments: `-Command "Get-ChildItem ~"`
+
+This is where your comfort with terminal commands becomes powerful in Linx.
+
+---
+
+### 🔹 3. **Automating File Navigation and Actions**
+
+You can:
+- Use **File Plugin** functions like:
+  - `FileRead`
+  - `FileWrite`
+  - `DirectoryList`
+- Automate backups, read logs, clean folders, etc.
+- All with paths you understand, like `cd ..`, or `~/Documents`
+
+Example:
+- You might use `DirectoryList` to list all files in `~/Downloads`
+- Then loop through them with a `ForEach` and read/move/delete files based on logic.
+
+---
+
+### 🔹 4. **Debugging and Logs (where arrow keys / history help you in CLI)**
+
+In Linx:
+- You get a **log output window** where each function execution is shown.
+- There’s a **debugger** where you can step through each part of your logic.
+- Instead of arrow keys and history, you get **re-run** and **breakpoints**.
+
+---
+
+### TL;DR – How Your CLI Knowledge Helps in Linx:
+
+| CLI Skill | How It Helps in Linx |
+|-----------|------------------------|
+| `pwd`, `cd` | Helps when setting file paths manually or dynamically |
+| `~` (home) | Useful when referencing user directories |
+| Tab completion | Not in Linx, but you get GUI-based path selection |
+| Arrow keys (history) | Replaced by debugger and logs |
+| CLI logic | Helps when using CommandLine plugin or scripting |
